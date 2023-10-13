@@ -1,0 +1,15 @@
+<!--pages/discuss/more/index.wxml-->
+<view class="questionList">
+  <view class="questionItem" wx:for="{{questionList}}" wx:key="index">
+    <view class="top">{{item.title}}</view>
+    <view class="bottom">
+      <view class="info">
+        {{item.answerCount}}回答
+      </view>
+      <view class="btns">
+        <view class="showAns" data-id="{{item._id}}" bindtap="details">查看回答</view>
+        <view class="postAns" data-id="{{item._id}}" data-post="{{true}}" bindtap="details">写回答</view>
+      </view>
+    </view>
+  </view>
+</view>

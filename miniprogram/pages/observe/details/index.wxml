@@ -1,0 +1,74 @@
+<!--pages/observe/details/index.wxml-->
+<view class="page">
+  <view>记录日期</view>
+  <view class="date" bindtap="pickDate">
+    <!-- 2023-03-07 -->
+    {{date}}
+    <image src="cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Insight_Calendar@3x.png" mode="widthFix" />
+  </view>
+  <van-overlay show="{{ showDatePicker }}" z-index="{{999}}">
+    <van-datetime-picker type="date" value="{{ curDate }}" bind:input="onInput" bind:confirm="comfirmDate" bind:cancel="cancelDate" class="datePicker" />
+  </van-overlay>
+  <view class="title">
+    记录内容
+    <view class="img" wx:if="{{id=='micturitionContent'}}">
+      <image src="cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Insight_Record_Plus@3x.png" mode="widthFix" bindtap="newRecord" />
+    </view>
+  </view>
+  <textarea class="food" value="{{foodContent}}" bindinput="inputFood" placeholder="请输入今天的饮食内容" wx:if="{{id=='foodContent'}}" style="color: #999;" />
+  <view class="micturition" wx:if="{{id=='micturitionContent'}}">
+    <view class="head">
+      共{{micturitionContent.length}}次
+      <view class="edit" bindtap="clickEdit" wx:if="{{!deleting}}">编辑</view>
+      <view class="edit" bindtap="editFinish" wx:else>完成</view>
+    </view>
+    <view class="line"></view>
+    <view class="content" wx:for="{{micturitionContent}}" wx:key="index">
+      <view class="text">{{item.value}}</view>
+      <view class="time">
+        {{item.time}}
+        <view class="delete" wx:if="{{deleting}}" bindtap="delete" data-index="{{index}}">删除</view>
+      </view>
+    </view>
+  </view>
+  <van-dialog use-slot title="记录内容" show="{{ show }}" show-cancel-button bind:confirm="onConfirm" bind:cancel="onClose" custom-class="my-custom-class">
+    <textarea value="{{micturitionNewRec}}" bindinput="bindTextareaInput" placeholder="请输入排泄/排遗的具体情况" style="color: #999;" />
+    <view class="line"></view>
+  </van-dialog>
+  <view class="row" wx:for="{{bloodStress}}" wx:if="{{id=='bloodStress'}}" wx:key="index">
+    {{item.item}}
+    <view class="left">
+      <input type="number" value="{{item.value}}" placeholder="请输入数字" bindinput="inputBloodStress" data-i="{{index}}" style="color: #999;" />mmHg
+    </view>
+  </view>
+  <view class="row" wx:if="{{id=='bloodOxygen'}}">
+    血氧百分比
+    <view class="left">
+      <input type="number" placeholder="请输入数字" value="{{bloodOxygen}}" bindinput="inputBloodOxygen" style="color: #999;" />%
+    </view>
+  </view>
+  <view class="row" wx:if="{{id=='heartRate'}}">
+    心率
+    <view class="left">
+      <input type="number" placeholder="请输入数字" value="{{heartRate}}" bindinput="inputHeartRate" style="color: #999;" />次/分钟
+    </view>
+  </view>
+  <view class="row" wx:if="{{id=='tempeature'}}">
+    体温
+    <view class="left">
+      <input type="number" placeholder="请输入数字" value="{{tempeature}}" bindinput="inputTemp" style="color: #999;" />摄氏度
+    </view>
+  </view>
+  <view class="row" wx:if="{{id=='bloodSuger'}}">
+    血糖
+    <view class="left">
+      <input type="number" placeholder="请输入数字" value="{{bloodSuger}}" bindinput="inputBloodSuger" style="color: #999;" />毫摩尔/升
+    </view>
+  </view>
+  <textarea class="sleep" value="{{sleepQuality}}" bindinput="inputSleep" placeholder="请输入今天的睡眠质量" wx:if="{{id=='sleepQuality'}}" style="color: #999;" />
+  <view class="bottom">
+    <view class="cancel" bindtap="cancel">取消</view>
+    <view class="affirm" bindtap="affirm">保存</view>
+  </view>
+  <!-- <van-datetime-picker type="date" value="{{ curDate }}" show-toolbar="{{false}}" wx:if="{{ showDatePicker }}" bind:input="onInput" class="datePicker"/> -->
+</view>

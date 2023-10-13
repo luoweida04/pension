@@ -1,0 +1,110 @@
+<!--pages/observe/index.wxml-->
+<view class="page">
+  <view class="top">
+    <view class="date" bindtap="selectDate">
+      {{formatDate}}
+      <image src="cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Calendar.png" mode="widthFix" />
+    </view>
+    <van-overlay show="{{ showDatePicker }}" z-index="{{999}}">
+      <van-datetime-picker type="date" value="{{ currentDate }}" bind:confirm="comfirmDate" bind:cancel="cancelDate" class="datePicker" />
+    </van-overlay>
+    <!-- <van-datetime-picker type="date" value="{{ currentDate }}" bind:input="onInput" wx:if="{{showDatePicker}}" bind:confirm="comfirmDate" bind:cancel="cancelDate" class="datePicker"/> -->
+    <view class="sdate" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd">
+      <view class="mask"></view>
+      <view class="middleBg"></view>
+      <view class="blockBox" style="left: {{left}}px;">
+        <view catchtap="clickSelectDate" data-index="{{index}}" class="block" wx:for="{{allDates}}" wx:key="index" style="background: {{index == middleDate ? 'rgba(0,0,0,0); color: #1b8d61' : ''}};">
+          <!-- <text style="font-size: 9px;">{{index==sdate-1 ? '今天' : item.week}}</text> -->
+          <text style="font-size: 9px;">{{otherFormatDate + (item.date >= 10 ? item.date : ('0' + item.date)) == today ? '今天' : item.week}}</text>
+          <text style="font-size: 12px;">{{item.date}}日</text>
+        </view>
+      </view>
+    </view>
+    <view class="line"></view>
+    <view class="state">
+      <view class="box">
+        <text>饮食状况</text>
+        <view class="faces">
+          <image src="{{item >= (score.foodContent || 0) ? 'cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Insight_Smile_Grey@3x.png' : 'cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Insight_Smile@3x.png'}}" mode="widthFix" wx:for="{{5}}" wx:key="index" data-index="{{index}}" data-key="foodContent" bindtap="setScore" />
+        </view>
+      </view>
+      <view class="box">
+        <text>大小便</text>
+        <view class="faces">
+          <image src="{{item >= (score.micturitionContent || 0) ? 'cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Insight_Smile_Grey@3x.png' : 'cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Insight_Smile@3x.png'}}" mode="widthFix" wx:for="{{5}}" wx:key="index" data-index="{{index}}" data-key="micturitionContent" bindtap="setScore" />
+        </view>
+      </view>
+      <view class="box">
+        <text>血压</text>
+        <view class="faces">
+          <image src="{{item >= (score.bloodStress || 0) ? 'cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Insight_Smile_Grey@3x.png' : 'cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Insight_Smile@3x.png'}}" mode="widthFix" wx:for="{{5}}" wx:key="index" data-index="{{index}}" data-key="bloodStress" bindtap="setScore" />
+        </view>
+      </view>
+      <view class="box">
+        <text>血氧</text>
+        <view class="faces">
+          <image src="{{item >= (score.bloodOxygen || 0) ? 'cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Insight_Smile_Grey@3x.png' : 'cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Insight_Smile@3x.png'}}" mode="widthFix" wx:for="{{5}}" wx:key="index" data-index="{{index}}" data-key="bloodOxygen" bindtap="setScore" />
+        </view>
+      </view>
+      <view class="box">
+        <text>心率</text>
+        <view class="faces">
+          <image src="{{item >= (score.heartRate || 0) ? 'cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Insight_Smile_Grey@3x.png' : 'cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Insight_Smile@3x.png'}}" mode="widthFix" wx:for="{{5}}" wx:key="index" data-index="{{index}}" data-key="heartRate" bindtap="setScore" />
+        </view>
+      </view>
+      <view class="box">
+        <text>体温</text>
+        <view class="faces">
+          <image src="{{item >= (score.tempeature || 0) ? 'cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Insight_Smile_Grey@3x.png' : 'cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Insight_Smile@3x.png'}}" mode="widthFix" wx:for="{{5}}" wx:key="index" data-index="{{index}}" data-key="tempeature" bindtap="setScore" />
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="twoTitle">
+    <text bindtap="changeTitle" data-title="今日数据" class="{{twoTitle!='今日数据' ? 'twoFontAndColor' : ''}}">今日数据</text>
+    <text bindtap="changeTitle" data-title="本周趋势" class="{{twoTitle!='本周趋势' ? 'twoFontAndColor' : ''}}">本周趋势</text>
+    <view class="line" style="left: {{twoTitle=='今日数据' ? '8vw' : '33vw'}};"></view>
+  </view>
+  <view class="details" hidden="{{twoTitle!='今日数据'}}">
+    <observerDetail wx:for="{{details}}" obj="{{item}}" wx:key="index" bindtap="gotoDetail" data-item="{{item}}" data-index="{{index}}"></observerDetail>
+  </view>
+  <!-- 这里只能用wx:if, 否则图表显示不出来 -->
+  <view wx:if="{{twoTitle=='本周趋势'}}">
+    <view class="chart">
+      <view class="chTitle">血压</view>
+      <view class="boxChart">
+        <ec-canvas ec="{{ ec }}"></ec-canvas>
+      </view>
+    </view>
+    <view class="chart">
+      <view class="chTitle">体温</view>
+      <view class="boxChart">
+        <ec-canvas ec="{{ ec2 }}"></ec-canvas>
+      </view>
+    </view>
+    <view class="chart">
+      <view class="chTitle">心率</view>
+      <view class="boxChart">
+        <ec-canvas ec="{{ ec3 }}"></ec-canvas>
+      </view>
+    </view>
+    <view class="chart">
+      <view class="chTitle">血氧</view>
+      <view class="boxChart">
+        <ec-canvas ec="{{ ec4 }}"></ec-canvas>
+      </view>
+    </view>
+    <view class="chart">
+      <view class="chTitle">血糖</view>
+      <view class="boxChart">
+        <ec-canvas ec="{{ ec5 }}"></ec-canvas>
+      </view>
+    </view>
+    <view class="chart">
+      <view class="chTitle">大小便</view>
+      <view class="boxChart">
+        <ec-canvas ec="{{ ec6 }}"></ec-canvas>
+      </view>
+    </view>
+  </view>
+</view>

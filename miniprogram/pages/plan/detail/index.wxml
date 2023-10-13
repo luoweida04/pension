@@ -1,0 +1,31 @@
+<!--pages/plan/detail/index.wxml-->
+<view class="plan-detail">
+  <view class="header">
+    <view class="img">
+      <image src="{{imgUrl[index]}}" style="width: 100%;" mode="widthFix"></image>
+      <view class="info">
+        <view class="title">{{titleList[index]}}</view>
+        <view class="count">{{lessonList.length}}课时</view>
+      </view>
+    </view>
+    <!-- <view class="desc">
+      脑与神经系统视频介绍脑与神经系统视频介绍脑与神经系统视频介绍脑与神经系统视频介绍脑与神经系统视频
+    </view> -->
+  </view>
+  <view class="list">
+    <view class="item" wx:for="{{lessonList}}" wx:key="index" data-index="{{index}}" bindtap="playVideo">
+      <view class="status">
+        <image src="../../../images/video_start.png" mode="widthFix" style="width: 75rpx; height: 75rpx;"></image>
+        <!-- <image wx:if="{{item.status == 1}}" src="../../../images/video_continue.png" mode="widthFix" style="width: 75rpx; height: 75rpx;"></image>
+        <image wx:if="{{item.status == 2}}" src="../../../images/video_finished.png" mode="widthFix" style="width: 75rpx; height: 75rpx;"></image> -->
+      </view>
+      <view class="data">
+        第{{index + 1}}课时
+        <!-- <view class="name">{{item.title}}</view> -->
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="mask" wx:if="{{playing}}" bindtap="closeVideo"></view>
+<video id="video" src="{{videoUrl}}" wx:if="{{playing}}" autoplay></video>

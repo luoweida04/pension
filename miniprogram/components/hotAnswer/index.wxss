@@ -1,0 +1,50 @@
+.page {
+  width: 90vw;
+  background-color: #fff;
+  border-radius: 10px;
+  margin-top: 15px;
+  padding-bottom: 5vw;
+}
+.head {
+  display: flex;
+  height: 8vw;
+}
+.head image {
+  width: 8vw;
+  height: 8vw;
+  background-color: #D9D9D9;
+  border-radius: 4vw;
+  overflow: hidden;
+  margin: 3vw 2vw 0 5vw;
+}
+.head text {
+  line-height: 14vw;
+  font-size: 14px;
+}
+.content {
+  width: 90%;
+  margin: auto;
+}
+.title {
+  margin-top: 25px;
+  font-weight: bold;
+}
+.inter {
+  display: flex;
+  margin-top: 5px;
+  margin-bottom:9px;
+}
+.inter image {
+  width: 2%;
+}
+.inter .answer {
+  width: 90%;
+  color: #9A9A9A;
+  font-size: 12px;
+  padding-left: 10px;
+  margin: 3px 0;
+}
+.bottom {
+  color: #696969;
+  font-size: 12px;
+}

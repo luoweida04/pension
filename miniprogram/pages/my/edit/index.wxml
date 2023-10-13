@@ -1,0 +1,114 @@
+<!--pages/my/edit/index.wxml-->
+<view class="page">
+  <view class="name">
+    <view class="label">昵称</view>
+    <view class="input-wrap" wx:if="{{!inputName}}">
+      <text>{{userName}}</text>
+      <view class="btn">
+        <image src="/images/Edit.png" mode="widthFix" bindtap="editName" style="width: 65%; height: 65%;"></image>
+      </view>
+    </view>
+    <view class="input-wrap" wx:if="{{inputName}}">
+      <input type="text" value="{{userName}}" bindinput="onChangeName" focus="{{nameFocus}}" />
+      <view class="btn">
+        <image src="/images/Check.png" mode="widthFix" bindtap="submitName" style="width: 65%; height: 65%;"></image>
+      </view>
+    </view>
+  </view>
+  <view class="info">
+    <view class="header">
+      被照护人
+      <view class="add" bindtap="gotoAddRole">添加成员 +</view>
+    </view>
+    <view class="wrap" wx:for="{{userList}}" wx:key="index">
+      <view class="top">
+        <view class="left">
+          <view class="relationship">
+            {{item.relationship}}
+            <view class="state" wx:if="{{item._id === userInfo._id}}">当前</view>
+            <view class="change" wx:else bindtap="changeRole" data-index="{{index}}">切换</view>
+          </view>
+          <view class="pre">寿命预测 {{item.lifeExpectancy}}岁 <text wx:if="{{item.retirementYear > 0}}">退休预测 {{item.retirementYear - item.birthYear}}岁</text></view>
+        </view>
+        <view class="right" wx:if="{{!editDetail || editIndex != index}}" bindtap="editDetail" data-id="{{item._id}}">
+          <image src="/images/Edit.png" mode="widthFix" style="width: 40rpx; height: 40rpx;margin-right: 10rpx;"></image>
+          <text>编辑</text>
+        </view>
+        <view class="right" wx:if="{{editDetail && editIndex === index}}" bindtap="submitDetail" data-id="{{item._id}}">
+          <image src="/images/Check.png" mode="widthFix" style="width: 40rpx; height: 40rpx;margin-right: 10rpx;"></image>
+          <text>完成</text>
+        </view>
+      </view>
+      <view class="detail">
+        <view class="age item">
+          <view class="key">出生日期</view>
+          <view class="value" wx:if="{{!editDetail}}">{{item.birth}}</view>
+          <view class="value edit" wx:if="{{editDetail && editIndex === index}}" bindtap="showBirthday">
+            {{item.birth}}
+            <image src="/images/Calendar.png" mode="widthFix" style="width: 40rpx; height: 40rpx; margin-left: 10rpx;"></image>
+          </view>
+        </view>
+        <view class="gender item">
+          <view class="key">性别</view>
+          <view class="value" bindtap="showGender">
+            {{genderOptions[item.gender]}}
+            <image src="/images/Write.png" mode="widthFix" style="width: 40rpx; height: 40rpx; margin-left: 10rpx;" wx:if="{{editDetail && editIndex === index}}"></image>
+          </view>
+        </view>
+        <view class="bloodType item">
+          <view class="key">血型</view>
+          <view class="value" bindtap="showBlood">
+            {{item.bloodType}}型
+            <image src="/images/Write.png" mode="widthFix" style="width: 40rpx; height: 40rpx; margin-left: 10rpx;" wx:if="{{editDetail && editIndex === index}}"></image>
+          </view>
+        </view>
+        <view class="job item">
+          <view class="key">职业</view>
+          <view class="value edit" bindtap="showJob">
+            {{jobMap[item.occupation]}}
+            <image src="/images/Write.png" mode="widthFix" style="width: 40rpx; height: 40rpx; margin-left: 10rpx;" wx:if="{{editDetail && editIndex === index}}"></image>
+          </view>
+        </view>
+        <view class="status item">
+          <view class="key">状态</view>
+          <view class="value edit" bindtap="showStatus">
+            {{statusMap[item.status]}}
+            <image src="/images/Write.png" mode="widthFix" style="width: 40rpx; height: 40rpx; margin-left: 10rpx;" wx:if="{{editDetail && editIndex === index}}"></image>
+          </view>
+        </view>
+        <view class="history">
+          <view class="key">特殊病史</view>
+          <view class="historyList">
+            <view class="historyItem" wx:for="{{item.medicalHistory}}" wx:key="index" wx:for-item="history">{{history}}</view>
+          </view>
+        </view>
+        <view class="target">
+          <view class="key">目标</view>
+          <view class="targetList">
+            <view class="targetItem" wx:for-item="target">{{item.target}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<van-popup show="{{ showBirthday }}" position="bottom" bind:close="onCloseBirthday">
+  <van-datetime-picker type="date" value="{{ userList[editIndex].birthday }}" min-date="{{ minDate }}" max-date="{{maxDate}}" bind:cancel="onCloseBirthday" bind:confirm="confirmBirthday" />
+</van-popup>
+
+<van-popup show="{{ showGender }}" position="bottom" bind:close="onCloseGender">
+  <van-picker columns="{{ genderOptions }}" bind:cancel="onCloseGender" bind:confirm="onChangeGender" show-toolbar title="性别" />
+</van-popup>
+
+<van-popup show="{{ showBlood }}" position="bottom" bind:close="onCloseBlood">
+  <van-picker columns="{{ bloodOptions }}" bind:cancel="onCloseBlood" bind:confirm="onChangeBlood" show-toolbar title="血型" />
+</van-popup>
+
+<van-popup show="{{ showJob }}" position="bottom" bind:close="onCloseJob">
+  <van-picker columns="{{ jobOptions }}" bind:cancel="onCloseJob" bind:confirm="onChangeJob" show-toolbar title="职业" />
+</van-popup>
+
+<van-popup show="{{ showStatus }}" position="bottom" bind:close="onCloseStatus">
+  <van-picker columns="{{ statusOptions }}" bind:cancel="onCloseStatus" bind:confirm="onChangeStatus" show-toolbar title="状态" />
+</van-popup>

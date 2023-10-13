@@ -1,0 +1,65 @@
+<!--pages/discuss/details/index.wxml-->
+<view class="p">
+  <view class="page" hidden="{{showWriteCom}}">
+    <view class="head">
+      <view class="question">{{question.title}}</view>
+      <view class="info">
+        <text>{{question.answerCount}}个回答</text>
+        <text>{{question.time}}</text>
+      </view>
+      <view class="line"></view>
+    </view>
+    <view class="answer">
+      <view class="user">
+        <image mode="widthFix"></image>
+        <text>用户名</text>
+      </view>
+      <view class="content">{{ansDetail.content}}</view>
+    </view>
+    <view class="comments">
+      <view class="title">
+        <view class="line"></view>
+        评论区
+        <view class="line"></view>
+      </view>
+      <view wx:for="{{comments}}" class="comment" wx:key="index">
+        <view class="head">
+          <view class="user">
+            <image mode="widthFix"></image>
+            <view class="detail">
+              <text class="userName">{{item.userName || '用户名'}}</text>
+              <text class="date">{{item.date}}</text>
+            </view>
+          </view>
+          <view class="support">
+            <image src="{{item.support == 'red' ?  'cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Q&A_Like_Red@3x.png' : 'cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Q&A_Like_Grey@3x.png'}}" mode="widthFix" bindtap="tap" data-index="{{index}}" data-id="{{item._id}}" data-support="{{item.support}}"></image>
+            <text class="count" style="color: {{item.support === 'red' ? '#f36f56' : '#d8d8d8'}};">{{item.supportNum}}</text>
+          </view>
+        </view>
+        <view class="content">{{item.content}}</view>
+      </view>
+    </view>
+    <view class="noComments" wx:if="{{comments.length==0}}">暂无评论</view>
+
+  </view>
+  <view class="write" hidden="{{!showWriteCom}}">
+    <textarea value="{{writeCom}}" class="writeCom" placeholder="请写下您的看法" bindinput="onInputWriteCom" />
+    <view class="btnss">
+      <view class="cancel" bindtap="cancel">取消</view>
+      <view class="complete" bindtap="post">发表</view>
+    </view>
+  </view>
+</view>
+<view class="btns" wx:if="{{!showWriteCom}}">
+  <view class="agree">
+    <image src="cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Q&A_UpArrow@3x.png" mode="widthFix" style="width: 40rpx" bindtap="agreeAnswer"></image>
+    <!-- 赞同245 -->
+    <text bindtap="agreeAnswer">{{ansDetail.isLike ? '已赞同': '赞同'}}{{ansDetail.likeCount}}</text>
+    <view class="line"></view>
+    <image src="cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Q&A_DownArrow@3x.png" mode="widthFix" style="width: 40rpx" bindtap="disagreeAnswer"></image>
+  </view>
+  <view class="post" bindtap="comment">
+    <image src="cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Comment (评论).png" mode="widthFix" style="width: 40rpx; margin-right: 20rpx;"></image>
+    写评论
+  </view>
+</view>

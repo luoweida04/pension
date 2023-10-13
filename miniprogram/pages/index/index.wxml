@@ -1,0 +1,220 @@
+<!--index.wxml-->
+<view class="container">
+  <image class="BG" src="{{bgUrl[step]}}" mode="widthFix" />
+  <custom-navigation showBack="{{step > 0 && step < 9}}" bgUrl="{{bgUrl[step]}}" bind:backCB="backCB"></custom-navigation>
+  <view class="main" style="margin-top: {{navHeight}}px;">
+    <view class="name" wx:if="{{step == 0}}">
+      <view class="title1">欢迎，我是晚晴</view>
+      <!-- <view class="title1">Well Aging</view> -->
+      <view class="title2">最懂您的银发生活健康顾问</view>
+      <input class="input" type="text" placeholder="请输入您的姓名" value="{{userInfo.userName}}" bindinput="onChangeName" />
+      <view class="btn" bindtap="beginNow">立即开始</view>
+      <view class="bottom-wrap">
+        <view class="ask">已经有账号?</view>
+        <view class="login" bindtap="login">登录</view>
+      </view>
+    </view>
+    <view class="info" wx:else>
+      <view class="role wrap" wx:if="{{step == 1}}">
+        <view class="greet">Hi, {{userInfo.userName}}</view>
+        <view class="ask">
+          <text class="ask">请问您想为谁开启"Well Aging" \n 的健康旅程? </text>
+        </view>
+        <view class="desc">
+          <text>Well Aging能够帮助您追踪和管理您的\n健康项目和照护计划</text>
+        </view>
+        <view class="options">
+          <view class="option {{index == roleIndex ? 'active' : ''}}" wx:for="{{roleOptions}}" wx:key="index" bindtap="chooseRole" data-index="{{index}}">{{item}}</view>
+        </view>
+      </view>
+
+      <view class="detail" wx:if="{{step > 1 && step < 7}}">
+        <view class="title1">现在,</view>
+        <view class="title2">请添加被照护人的个人信息</view>
+        <view class="desc">这些信息将会帮助我们为您的账户提供人性化服务</view>
+
+        <view class="age wrap" wx:if="{{step == 2}}">
+          <view class="title">
+            <view class="block"></view>
+            年龄
+          </view>
+          <view class="text" style="font-weight: bold;">他/她现在 <text style="text-decoration: underline;">{{age}}</text> 岁</view>
+          <view class="picker">
+            <van-datetime-picker type="date" show-toolbar="{{false}}" value="{{ userInfo.birthday || date }}" bind:input="onInput" min-date="{{minDate}}" max-date="{{maxDate}}" />
+            <view class="selected-block"></view>
+          </view>
+        </view>
+        <view class="gender wrap" wx:if="{{step == 3}}">
+          <view class="title">
+            <view class="block"></view>
+            性别
+          </view>
+          <view class="options">
+            <view class="option {{index == genderIndex ? 'active' : ''}}" wx:for="{{genderOptions}}" wx:key="index" bindtap="chooseGender" data-index="{{index}}">{{item}}</view>
+          </view>
+        </view>
+        <view class="blood wrap" wx:if="{{step == 4}}">
+          <view class="title">
+            <view class="block"></view>
+            血型
+          </view>
+          <view class="bloodOptions">
+            <view class="bloodOption {{index == bloodIndex ? 'active' : ''}}" wx:for="{{bloodOptions}}" wx:key="index" bindtap="chooseBlood" data-index="{{index}}">{{item}}</view>
+            <view class="bloodOption other {{bloodOptions.length == bloodIndex ? 'active' : ''}}" bindtap="chooseBlood" data-index="{{bloodOptions.length}}">其他</view>
+          </view>
+        </view>
+        <view class="job wrap" wx:if="{{step == 5}}">
+          <view class="title">
+            <view class="block"></view>
+            职业
+          </view>
+          <view class="options">
+            <view class="option {{index == jobIndex ? 'active' : ''}}" wx:for="{{jobOptions}}" wx:key="index" bindtap="chooseJob" data-index="{{index}}">{{item}}</view>
+          </view>
+        </view>
+        <view class="status wrap" wx:if="{{step == 6}}">
+          <view class="title">
+            <view class="block"></view>
+            实际状态
+          </view>
+          <view class="options">
+            <view class="option {{statusIndex == 0 ? 'active' : ''}}" style="line-height: 45rpx;" bindtap="chooseStatus" data-index="{{0}}">
+              <text data-index="{{0}}">活力人士\n</text>
+              <text style="font-size: .8em;" data-index="{{0}}">(能自由行走吃喝)</text>
+            </view>
+            <view class="option {{statusIndex == index + 1 ? 'active' : ''}}" wx:for="{{statusOptions}}" wx:key="index" bindtap="chooseStatus" data-index="{{index + 1}}">{{item}}</view>
+          </view>
+        </view>
+      </view>
+
+      <view class="history" wx:if="{{step == 7}}">
+        <view class="title1">接下来,</view>
+        <view class="title2">请将被照顾病人的特殊病史告诉我们</view>
+        <view class="historyDesc">这些信息将会帮助我们为您的账户提供人性化服务</view>
+        <view class="historyWrap">
+          <view class="historyItem" wx:for="{{medicalHistory}}" wx:key="index">
+            <view class="aspect" bindtap="openPopup" data-index="{{index}}">{{item.aspect}}
+              <image class="addIcon" src="../../images/add.png" data-index="{{index}}"></image>
+            </view>
+            <view class="selected-wrap" wx:if="{{item.selected}}">
+              <view class="selected-item" wx:for="{{item.options}}" wx:key="index" wx:if="{{item.flag}}">{{item.name}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="target" wx:if="{{step == 8}}">
+        <view class="title1">接下来,</view>
+        <view class="title2">请提供使用Well Aging时更详细的内容</view>
+        <view class="targetDesc">更加个性化的项目会帮助您实现您的目标</view>
+        <view class="targetWrap">
+          <view class="title">
+            <view class="block"></view>
+            请问您希望在Well Aging中实现什么目标？
+          </view>
+          <view class="options">
+            <view class="option {{index == targetIndex ? 'active' : ''}}" wx:for="{{targetOptions}}" wx:key="index" bindtap="chooseTarget" data-index="{{index}}">{{item}}</view>
+            <view class="option {{targetIndex === targetOptions.length ? 'active' : ''}}" style="letter-spacing: 5rpx;" bindtap="chooseTarget" data-index="{{targetOptions.length}}" bindtap="showOtherTargetDialog">···</view>
+          </view>
+        </view>
+      </view>
+
+      <view class="calculate" wx:if="{{step == 9}}">
+        <view class="title1">{{userInfo.userName}}</view>
+        <view class="title2">根据您的信息，我们对您的寿命<text wx:if="{{userInfo.retirementYear > 0}}">和退休年龄</text>进行了预测</view>
+
+        <view class="wrap">
+          <view class="life cal-item">
+            <view class="top">
+              <view class="block"></view>
+              <view class="title">寿命预测</view>
+            </view>
+            <view class="cal-bottom">
+              <view class="tips">该数值根据社会统计学计算得出，仅作参考</view>
+              <view class="value">{{userInfo.lifeExpectancy}}<text style="font-size: 1rem;">岁</text></view>
+            </view>
+          </view>
+          <view class="retired cal-item" wx:if="{{userInfo.retirementYear > 0}}">
+            <view class="top">
+              <view class="block"></view>
+              <view class="title">退休年龄</view>
+            </view>
+            <view class="cal-bottom">
+              <view class="tips">该数值根据社会统计学计算得出，仅作参考</view>
+              <view class="value">{{userInfo.retirementYear - birthYear}}<text style="font-size: 1rem;">岁</text></view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="confirm" wx:if="{{step == 10}}">
+        <view class="title1">{{userInfo.userName}},</view>
+        <view class="title2">请确认你设置的偏好并{{add ? '添加被照护人' : '创建账号'}}</view>
+        <view class="chosen">
+          <view class="chosenItem">
+            <view class="title">
+              <view class="block" style="background-color: rgba(84, 180, 148, 1);"></view>
+              你的症状
+            </view>
+            <view class="list" style="display: flex; flex-wrap: wrap;">
+              <view class="item" wx:for="{{userInfo.medicalHistory}}" wx:key="index">{{item}}</view>
+            </view>
+          </view>
+          <view class="chosenItem">
+            <view class="title">
+              <view class="block" style="background-color: rgba(84, 180, 148, 1);"></view>
+              你的目标
+            </view>
+            <view class="list" style="display: flex;">
+              <view class="item">{{userInfo.target}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="bottom" wx:if="{{step < 10}}">
+        <view class="progress-wrap">
+          <view class="progress {{item == step ? 'active' : ''}}" wx:for="{{[1,2,3,4,5,6,7,8,9]}}" wx:key="index"></view>
+        </view>
+        <view class="next-btn" bindtap="next">
+          <text wx:if="{{preview && step == 9}}" style="color: #fff;">完成测试</text>
+          <image class="icon" src="../../images/next.png" wx:else></image>
+        </view>
+      </view>
+      <view class="addBottom" wx:if="{{step >= 10 && add}}">
+        <view class="confirmAdd" bindtap="confirmAddRole">添加成员</view>
+      </view>
+      <view class="loginBottom" wx:if="{{step >= 10 &&!add && reTest!=1}}" style="height: 30%;">
+        <view class="create" style="margin-bottom: 10rpx; color: #535353;">创建账号</view>
+        <view class="vx" bindtap="WXRegister">微信登录</view>
+        <view class="phone" bindtap="showPhoneDialog">手机号登录</view>
+        <view class="confirm-login" style="margin-top: 10rpx;"><text>已经有账号?</text><text class="login" bindtap="login">登录</text></view>
+      </view>
+      <view class="completeRetestBtn" wx:if="{{step >= 10 &&!add && reTest==1}}" bindtap="completeRetest">完成</view>
+    </view>
+  </view>
+</view>
+
+<van-popup show="{{ show }}" position="bottom" custom-style="height: 45vh;" bind:close="onClose" round>
+  <view class="pop-title">{{historyToChoose.aspect}}</view>
+  <view class="wrap" style="overflow-y: auto; max-height: 60%; justify-content: start;">
+    <view class="pop-item {{item.flag ? 'active' : ''}}" wx:for="{{historyToChoose.options}}" wx:key="index" bindtap="chooseHistory" data-index="{{index}}">{{item.name}}</view>
+    <view class="pop-item" bindtap="showOtherHistoryDialog">其他</view>
+  </view>
+  <view class="btns">
+    <view class="calcel" bindtap="cancelHistory">取消</view>
+    <view class="confirmBtn" bindtap="confirmHistory">确认</view>
+  </view>
+</van-popup>
+
+<van-dialog use-slot title="其他病史" show="{{ showOtherHistoryDialog }}" show-cancel-button bind:close="onCloseOtherHistoryDialog" bind:confirm="confirmOtherHistory" bind:cancel="cancelOtherHistory">
+  <input type="text" class="otherHistoryInput" placeholder="请在此处输入其他病史" value="{{otherHistory}}" bindinput="onInputOtherHistory" />
+</van-dialog>
+
+<van-dialog use-slot title="其他目标" show="{{ showOtherTargetDialog }}" show-cancel-button bind:close="onCloseOtherTargetDialog" bind:confirm="confirmOtherTarget">
+  <input type="text" class="otherTargetInput" placeholder="请在此处输入其他目标" value="{{otherTarget}}" bindinput="onInputOtherTarget" />
+</van-dialog>
+
+<van-dialog use-slot title="手机号码" show="{{ showPhoneDialog }}" show-cancel-button bind:close="onClosePhoneDialog" bind:confirm="confirmPhone">
+  <input type="text" class="phoneInput" placeholder="请在此处输入手机号码" value="{{phone}}" bindinput="onInputPhone" />
+</van-dialog>

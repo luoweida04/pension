@@ -1,0 +1,110 @@
+<!--pages/discuss/index.wxml-->
+<view class="p">
+  <!-- <customNavigation bgUrl="/images/topNavBg.png"></customNavigation> -->
+  <view class="bg"></view>
+  <view class="page">
+    <view class="search">
+      <view class="input-wrap">
+        <input type="text" bindinput="searchInput" value="{{keyword}}" class="input" bindfocus="searchFocus" />
+        <view class="searchIcon" bindtap="search">
+          <image src="cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Q&A_Search@3x.png" mode="widthFix" style="width: 50rpx; height: 50rpx;"></image>
+        </view>
+      </view>
+      <view class="image" bindtap="gotoRemind">
+        <image src="cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Q&A_Message@3x.png" mode="widthFix"></image>
+        <view class="dot" wx:if="{{remind}}"></view>
+      </view>
+    </view>
+    <view class="main" hidden="{{showSearch}}">
+      <view class="inputQues" hidden="{{!showPostQues}}">
+        <input type="text" value="{{quesContent}}" bindinput="quesInput" />
+        <view class="btn" bindtap="postQues">{{quesContent ? '提问' : '取消'}}</view>
+      </view>
+      <view class="question" hidden="{{showPostQues}}">
+        <view class="left">
+          <text class="num">{{recentAnswerCount}}</text>
+          <text class="text">近24小时已获回答</text>
+        </view>
+        <view class="right">
+          <view class="btn" bindtap="showPostQues">立即提问</view>
+          <!-- <view class="time">
+            预计<text style="color: #FF7D7D;">1分钟</text>获得回答
+          </view> -->
+        </view>
+      </view>
+      <view class="line">
+        <text class="title">邀你来答</text>
+        <text class="more" bindtap="gotoMyQues">我的问题 ></text>
+      </view>
+      <view class="answer" hidden="{{showMyAnswerContent}}">
+        <view class="ques" animation="{{animationturn & 1 ? animationData1 : animationData2}}" style="z-index:{{animationturn ^ 1}}">
+          <!-- {{questions[animationturn ^ 0].qs}} -->
+          {{questions[animationturn ^ 0].title}}
+          <view class="bottom">
+            <!-- <text>{{questions[animationturn ^ 0].ans}}回答</text> -->
+            <text>{{questions[animationturn ^ 0].answerCount}} 回答</text>
+            <view class="btns">
+              <view class="btn next" bindtap="nextQues">下一题</view>
+              <view class="btn ans" bindtap="meToAns" data-index="{{animationturn ^ 0}}">我来答</view>
+            </view>
+          </view>
+        </view>
+        <view class="ques" animation="{{animationturn & 1 ? animationData2 : animationData1}}" style="z-index:{{animationturn ^ 0}}">
+          {{questions[animationturn ^ 1].title}}
+          <view class="bottom">
+            <text>{{questions[animationturn ^ 1].answerCount}}回答</text>
+            <view class="btns">
+              <view class="btn next" bindtap="nextQues">下一题</view>
+              <view class="btn ans" bindtap="meToAns" data-index="{{animationturn ^ 1}}">我来答</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="answering" hidden="{{!showMyAnswerContent}}">
+        <view class="title" style="color: #555;">{{questions[answeringIndex].title}}</view>
+        <textarea value="{{myAnswerContent}}" class="myAnswerContent" bindinput="onInputMyAnswerContent" placeholder="请写下您的回答" />
+        <view class="btnsss">
+          <view class="cancel" bindtap="backMeAns">取消</view>
+          <view class="post" bindtap="affMeAns">发表</view>
+        </view>
+      </view>
+      <view class="line">
+        <text class="title">热门问题</text>
+        <text class="more" bindtap="gotoMore">更多问题 ></text>
+      </view>
+      <view class="hotAnswer">
+        <hotAnswer bindtap="gotoAnswers" data-id="{{item._id}}" wx:for="{{hotAns}}" wx:key="index" hotAns="{{item}}"></hotAnswer>
+      </view>
+    </view>
+    <view class="searchHistory" hidden="{{!showSearch || !showHistory}}">
+      <view class="top">
+        <view class="left">
+          <view class="text">搜索历史</view>
+          <image src="/images/DeleteIcon.png" mode="widthFix" style="width: 40rpx; margin-left: 20rpx;" bindtap="clearHistory"></image>
+        </view>
+        <view class="right" bindtap="closeSearch">X</view>
+      </view>
+      <view class="historyList">
+        <view class="item" wx:for="{{historyList}}" wx:key="index" data-keyword="{{item}}" bindtap="clickHistory">{{item}}</view>
+      </view>
+    </view>
+    <view class="searchResults" hidden="{{!keyword}}">
+      <view class="searchQuesItem" wx:for="{{searchResult}}" wx:key="index">
+        <view class="top" bindtap="gotoAnswers" data-id="{{item._id}}">{{item.title}}</view>
+        <view class="ans" wx:for="{{item.answer}}" wx:key="index" wx:for-item="ans" style="margin: 20rpx 0;" data-id="{{item._id}}" data-answerId="{{ans._id}}" bindtap="details">
+          <view class="header" style="font-weight: bold; display: flex; align-items: center; margin-bottom: 20rpx; margin-top: 40rpx;">
+            <view class="avatar"></view>
+            用户{{ans.user}}
+          </view>
+          <view class="content" style="font-size: .8em; color: rgba(154, 154, 154, 1);">{{ans.content}}</view>
+        </view>
+        <view class="empty" wx:if="{{item.answerCount === 0}}" style="text-align: center; color: #999; margin: 20rpx 0;">暂无回答</view>
+        <view class="more" wx:if="{{item.answerCount > 2}}" style="width: 94%; margin: 0 auto; text-align: center; border-top: 1px solid rgba(0, 0, 0, 0.07); padding-top: 20rpx; font-size: .95em;" bindtap="gotoAnswers" data-id="{{item._id}}">查看更多回答</view>
+      </view>
+      <view class="empty" wx:if="{{showEmpty}}" style="text-align: center; color: rgba(154, 154, 154, 1);margin-top: 300rpx; display: inline-block;">
+        <text style="color: #555;text-decoration: underline;" bindtap="closeSearch">←返回</text>
+        暂无相关问题
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,11 @@
+<!--components/customNavigation/index.wxml-->
+<view class="navigationBar" style="height: {{navHeight}}px;">
+  <image class="bg" src="{{bgUrl}}" mode="widthFix"></image>
+  <view class="statusBar" style="height: {{statusBarHeight}}px;"></view>
+  <view class="navBar" style="height: {{navHeight - statusBarHeight}}px ;line-height: {{navHeight - statusBarHeight}}px;">
+    <view class="btn" wx:if="{{showBack}}" bindtap="goBack">
+      <image class="back" src="../../images/back.png"></image>
+    </view>
+    <view class="title">晚晴呵护</view>
+  </view>
+</view>

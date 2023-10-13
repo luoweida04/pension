@@ -1,0 +1,105 @@
+<!--pages/my/index.wxml-->
+<view class="page">
+  <view class="card">
+    <view class="info">
+      <view class="left">
+        <text>{{userInfo.userName}}</text>
+        <!-- <view class="btn"> 关系: {{userInfo.relationship}}</view> -->
+      </view>
+      <image src="cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/1.webp" mode="widthFix"></image>
+    </view>
+    <view class="btns">
+      <view class="btn" bindtap="gotoEdit">
+        <image mode="widthFix" src="cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Mypage_FamilyFile@3x.png"></image>
+        <text>家庭档案</text>
+      </view>
+      <view class="btn" bindtap="gotoDevelop">
+        <image mode="widthFix" src="cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Mypage_Record@3x.png"></image>
+        <text>购买记录</text>
+      </view>
+      <view class="btn" bindtap="gotoDevelop">
+        <image mode="widthFix" src="cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Mypage_Setting@3x.png"></image>
+        <text>偏好设置</text>
+      </view>
+    </view>
+  </view>
+  <image src="cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Mypage_Invite@3x.png" mode="widthFix" class="invite"></image>
+  <view class="box">
+    <view class="line" bindtap="gotoDevelop">
+      <view class="left">
+        <image mode="widthFix" src="cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Mypage_Beginner@3x.png"></image>
+        <text>新手教程</text>
+      </view>
+      <view class="gt">></view>
+    </view>
+    <view class="line" bindtap="gotoDevelop">
+      <view class="left">
+        <image mode="widthFix" src="cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Mypage_TestBeforeClass@3x.png"></image>
+        <text>课前评估</text>
+      </view>
+      <view class="gt">></view>
+    </view>
+  </view>
+  <view class="box">
+    <view class="line" bindtap="gotoDevelop">
+      <view class="left">
+        <image mode="widthFix" src="cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Mypage_RedemptionCode@3x.png"></image>
+        <text>优惠券</text>
+      </view>
+      <view class="gt">></view>
+    </view>
+    <view class="line" bindtap="gotoDevelop">
+      <view class="left">
+        <image mode="widthFix" src="cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Mypage_Coupons@3x.png"></image>
+        <text>兑换码</text>
+      </view>
+      <view class="gt">></view>
+    </view>
+  </view>
+  <view class="box">
+    <view class="line" bindtap="gotoDevelop">
+      <view class="left">
+        <image mode="widthFix" src="cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Mypage_Expert@3x.png"></image>
+        <text>专属顾问</text>
+      </view>
+      <view class="gt">></view>
+    </view>
+    <view class="line" bindtap="gotoDevelop">
+      <view class="left">
+        <image mode="widthFix" src="cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Mypage_Feedback@3x.png"></image>
+        <text>意见反馈</text>
+      </view>
+      <view class="gt">></view>
+    </view>
+    <view class="line" bindtap="gotoDevelop">
+      <view class="left">
+        <image mode="widthFix" src="cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Mypage_Customer@3x.png"></image>
+        <text>咨询客服</text>
+      </view>
+      <view class="gt">></view>
+    </view>
+  </view>
+  <text class="title">关于晚晴呵护</text>
+  <view class="wanjing">
+    <image mode="widthFix" src="cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Mypage_BrandStory@3x.png" bindtap="gotoDevelop"></image>
+    <image mode="widthFix" src="cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Mypage_UserStory@3x.png" bindtap="gotoDevelop"></image>
+  </view>
+  <text class="title">了解更多</text>
+  <view class="more">
+    <view class="block">
+      <image mode="widthFix" src="cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Mypage_Wechat@3x.png" bindtap="gotoDevelop"></image>
+      <text class="txt1">官方公众号</text>
+      <text class="txt2">上新早知道</text>
+    </view>
+    <view class="block">
+      <image mode="widthFix" src="cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Mypage_Video@3x.png" bindtap="gotoDevelop"></image>
+      <text class="txt1">官方视频号</text>
+      <text class="txt2">直播送福利</text>
+    </view>
+    <view class="block">
+      <image mode="widthFix" src="cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Mypage_BroadCast@3x.png" bindtap="gotoDevelop"></image>
+      <text class="txt1">官方博客账号</text>
+      <text class="txt2">听团队唠嗑</text>
+    </view>
+  </view>
+</view>

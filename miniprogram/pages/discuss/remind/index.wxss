@@ -1,0 +1,56 @@
+/* pages/discuss/remind/index.wxss */
+
+.remindList{
+  width: 100vw;
+}
+
+.remindItem {
+  display: flex;
+  width: 90%;
+  margin: 30rpx auto;
+  box-sizing: border-box;
+  padding: 30rpx 0;
+  border-bottom: 1px solid rgb(218, 218, 218);
+}
+
+.left {
+  width: 80rpx;
+  height: 80rpx;
+  background: #d9d9d9;
+  border-radius: 50%;
+  margin-right: 20rpx;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.right .header{
+  font-weight: bold;
+  letter-spacing: 1rpx;
+  color: #555;
+}
+
+.right .header .text{
+  font-size: .9em;
+  color: #999;
+  font-weight: 500;
+}
+
+.right .main{
+  margin: 20rpx 0;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.right .footer{
+  display: flex;
+  justify-content: space-between;
+  color: #999;
+  font-size: .9em;
+}

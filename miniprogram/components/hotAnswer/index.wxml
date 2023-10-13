@@ -1,0 +1,21 @@
+<!--components/hotAnswer/index.wxml-->
+<view class="page">
+  <view class="head">
+    <image mode="widthFix"></image>
+    <text>用户{{hotAns.user}}</text>
+  </view>
+  <view class="content">
+    <view class="title">
+      <!-- 季节转换时期老年人要注意哪些健康问题？ -->
+      {{hotAns.title}}
+    </view>
+    <view class="inter">
+      <image src="cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Group 45@3x.png" mode="widthFix"></image>
+      <view class="answer">
+        <!-- 春天将至，又是运动的好时节，外出运动有益身心健康，但是老年人在这冬春交替时节还要多加注意。具体应该关注哪些健康问题呢？让我们一起来听专家解答。每年季节转换的时候... -->
+        {{hotAns.content}}
+      </view>
+    </view>
+    <view class="bottom">{{hotAns.answerCount}} 回答</view>
+  </view>
+</view>

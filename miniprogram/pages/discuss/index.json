@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "hotAnswer": "/components/hotAnswer/index"
+  },
+  "navigationBarTitleText": "问答"
+}

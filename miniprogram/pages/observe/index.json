@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "observerDetail": "/components/observerDetail",
+    "van-datetime-picker": "@vant/weapp/datetime-picker/index",
+    "van-overlay": "@vant/weapp/overlay/index",
+    "ec-canvas": "../../ec-canvas/ec-canvas"
+  },
+  "navigationBarTitleText": "照护"
+}

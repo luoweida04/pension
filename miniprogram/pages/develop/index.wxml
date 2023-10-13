@@ -1,0 +1,5 @@
+<!--pages/develop/index.wxml-->
+<view class="wrap">
+  <image src="cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Developing@3x.png" mode="widthFix" style="width: 80vw"></image>
+  <text style="margin: 20px 0 120px;">功能正在开发中</text>
+</view>

@@ -1,0 +1,14 @@
+<!--components/observerDetail/index.wxml-->
+<view class="page">
+  <view class="head">
+    <text>{{obj.title}}</text>
+    <image src="{{obj.imgPlus}}" mode="widthFix"/>
+  </view>
+  <view class="content">
+    <text>{{obj.content}}</text>
+    <!-- <text wx:if="{{obj.unit != ''}}">{{obj.content}}</text>
+    <text wx:if="{{obj.unit == ''}}" class="unit">{{obj.content}}</text> -->
+    <text class="unit" wx:if="{{obj.content != '暂无数据'}}">{{obj.unit}}</text>
+  </view>
+  <image src="{{obj.imgBg}}" mode="widthFix" class="bg"/>
+</view>

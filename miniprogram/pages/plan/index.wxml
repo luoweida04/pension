@@ -1,0 +1,18 @@
+<!--pages/plan/index.wxml-->
+<view class="plan">
+  <view class="item" wx:for="{{planList}}" wx:key="index" bindtap="gotoDetail" data-index="{{index}}">
+    <image src="{{item.imgUrl}}" style="width: 100%;" mode="widthFix"></image>
+    <view class="info">
+      <!-- <view class="continue status" wx:if="{{item.status == 1}}">
+        <image src="../../images/continue.png" mode="widthFix" style="width: 30rpx;margin-right: 10rpx;"></image>
+        进行中
+      </view>
+      <view class="finished status" wx:if="{{item.status == 2}}">
+        <image src="../../images/finished.png" mode="widthFix" style="width: 30rpx;margin-right: 10rpx;"></image>
+        已完成
+      </view> -->
+      <view class="title">{{item.title}}</view>
+      <view class="count">{{countList[index]}}课时</view>
+    </view>
+  </view>
+</view>

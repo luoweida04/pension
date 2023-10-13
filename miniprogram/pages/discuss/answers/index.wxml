@@ -1,0 +1,31 @@
+<!--pages/discuss/answers/index.wxml-->
+<view class="p">
+  <view class="page" hidden="{{showWriteAns}}">
+    <view class="head">
+      <view class="question">{{question.title}}</view>
+      <view class="info">
+        <text>{{question.answerCount}}个回答</text>
+        <text>{{question.time}}</text>
+      </view>
+      <view class="line"></view>
+    </view>
+    <view class="answer" wx:for="{{answerList}}" wx:key="index" data-id="{{item._id}}" bindtap="gotoDetail">
+      <view class="user">
+        <image mode="widthFix"></image>
+        <text>用户{{item.user}}</text>
+      </view>
+      <view class="content">{{item.content}}</view>
+    </view>
+    <view class="empty" wx:if="{{answerList.length === 0}}" style="text-align: center; color: #999; margin-top: 60rpx;">暂无回答</view>
+  </view>
+  <view class="write" hidden="{{!showWriteAns}}">
+    <textarea value="{{writeAns}}" class="writeCom" placeholder="请写下您的回答" bindinput="onInputWriteAns" />
+    <view class="btnss">
+      <view class="cancel" bindtap="cancel">取消</view>
+      <view class="complete" bindtap="post">发表</view>
+    </view>
+  </view>
+</view>
+<view class="btns" bindtap="writeAnswer" wx:if="{{!showWriteAns}}">
+  回答
+</view>

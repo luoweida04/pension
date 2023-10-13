@@ -1,0 +1,15 @@
+<!--pages/discuss/remind/index.wxml-->
+<view class="remindList">
+  <view class="remindItem" wx:for="{{remindList}}" wx:key="index" data-answerId="{{item.answerId}}" data-questionId="{{item.questionId}}" data-index="{{index}}" bindtap="readRemind">
+    <view class="left"></view>
+    <view class="right">
+      <view class="header">用户{{item.userId}} <text class="text">{{item.questionId ? '回答了你的问题' : '评论了你的回答'}}</text></view>
+      <view class="main">{{item.content}}</view>
+      <view class="footer">
+        <view>{{item.time}}</view>
+        <view style="color: #54b494;">查看详情 ></view>
+      </view>
+    </view>
+  </view>
+  <view class="empty" wx:if="{{remindList.length === 0}}" style="color: #777; text-align: center; margin-top: 100rpx;">暂无消息</view>
+</view>

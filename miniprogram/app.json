@@ -1,0 +1,63 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/home/index",
+    "pages/plan/index",
+    "pages/observe/index",
+    "pages/discuss/index",
+    "pages/my/index",
+    "pages/discuss/details/index",
+    "pages/observe/details/index",
+    "pages/plan/detail/index",
+    "pages/develop/index",
+    "pages/my/edit/index",
+    "pages/discuss/more/index",
+    "pages/discuss/answers/index",
+    "pages/discuss/remind/index"
+  ],
+  "usingComponents": {
+    "customNavigation": "/components/customNavigation/index"
+  },
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#aeebd7",
+    "navigationBarTitleText": "晚晴呵护",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "text": "首页",
+        "iconPath": "./images/home_grey.png",
+        "selectedIconPath": "./images/home_green.png"
+      },
+      {
+        "pagePath": "pages/plan/index",
+        "text": "学习",
+        "iconPath": "./images/plan_grey.png",
+        "selectedIconPath": "./images/plan_green.png"
+      },
+      {
+        "pagePath": "pages/observe/index",
+        "text": "照护",
+        "iconPath": "./images/observe_grey.png",
+        "selectedIconPath": "./images/observe_green.png"
+      },
+      {
+        "pagePath": "pages/discuss/index",
+        "text": "问答",
+        "iconPath": "./images/discuss_grey.png",
+        "selectedIconPath": "./images/discuss_green.png"
+      },
+      {
+        "pagePath": "pages/my/index",
+        "text": "我的",
+        "iconPath": "./images/my_grey.png",
+        "selectedIconPath": "./images/my_green.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

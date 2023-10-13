@@ -1,0 +1,88 @@
+<!--pages/home/index.wxml-->
+<view class="page">
+  <view class="user">
+    <image src="cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/1.webp" mode="widthFix" />
+    <view class="right">
+      <view class="name">Hi, {{userInfo.userName}}</view>
+      <view class="info">您已经连续<text style="color: #efb1b5;">{{continuation}}天</text>守护您爱的人的健康了，加油！</view>
+    </view>
+  </view>
+  <button class="invite" open-type="share" hover-class="none">
+    <image src="cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Frame 27@3x.png" mode="widthFix" class="inviteImg" />
+  </button>
+
+  <view class="todayData">
+    <text>今日数据</text>
+    <view class="more" bindtap="gotoObserve">查看更多 ></view>
+  </view>
+  <view class="today">
+    <view class="four">
+      <view class="one" wx:for="{{four}}" wx:key="index">
+        <view class="line" style="background: {{item.bg}};"></view>
+        <view class="right">
+          <view class="title">{{item.title}}</view>
+          <view class="v">
+            <text class="value">{{todayRecord[item.key] !== undefined ? todayRecord[item.key] : '暂未填报'}}</text>
+            <text class="unit">{{todayRecord[item.key] === undefined ? '' : item.unit}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="nav">
+      <view wx:for="{{today}}" wx:key="index" bindtap="select" data-i="{{index}}" class="{{selected == index ? 'selected' : 'unselected'}}">{{item}}</view>
+    </view>
+    <view class="boxChart" hidden="{{playing}}">
+      <ec-canvas ec="{{ ec }}" force-use-old-canvas="true"></ec-canvas>
+    </view>
+  </view>
+  <view class="newContent">最新内容</view>
+  <view class="newConDetail">
+    <view class="longLine">
+      <view class="videoBox" wx:for="{{videos}}" wx:key="index" data-index="{{index}}" bindtap="playVideo">
+        <!-- <video src="{{item.url}}" show-fullscreen-btn="{{false}}" show-play-btn="{{false}}" controls="{{false}}" /> -->
+        <view class="img">
+          <image src="{{item.cover}}" mode="widthFix" style="width: 100%;"></image>
+          <image src="cloud://cloud1-5g0jamir2a885c6a.636c-cloud1-5g0jamir2a885c6a-1317163959/Play (播放).png" mode="widthFix" class="palyBtn" />
+        </view>
+        <view class="title">{{item.title}}</view>
+        <view class="bottom">
+          <text>已浏览 {{item.count}} 次</text>
+          <text>{{item.time}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="more" bindtap="gotoPlan">查看更多</view>
+  </view>
+  <view class="recom">
+    <text>推荐测试</text>
+    <view class="more">查看更多 ></view>
+  </view>
+  <view class="recomDetail">
+    <view class="detail" wx:for="{{recomDetail}}" wx:key="index">
+      <image src="{{item.imgUrl}}" mode="widthFix" />
+      <view class="right">
+        <view class="text">{{item.text}}</view>
+        <view class="bottom">
+          <!-- <view class="count">已测试{{item.count}}次</view> -->
+          <view class="btn" data-i="{{index}}" bindtap="gotoPreview">进入测试</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="community">社区热话</view>
+  <view class="communityDetail">
+    <view class="detail" wx:for="{{hotQuestions}}" wx:key="index" data-id="{{item._id}}" bindtap="gotoAnswers">
+      <view class="num">
+        <text class="No">{{index + 1}}</text>
+        <image src="{{index < 3? communityIcon[index] : ''}}" mode="widthFix" class="icon" />
+      </view>
+      <view class="text">{{item.title}}</view>
+      <view class="ansCount">{{item.answerCount}}回答</view>
+      <!-- <image src="{{item.imgUrl}}" mode="widthFix" class="img" /> -->
+    </view>
+    <view class="more" bindtap="gotoDiscuss">查看更多</view>
+  </view>
+</view>
+
+<view class="mask" wx:if="{{playing}}" bindtap="closeVideo"></view>
+<video id="video" src="{{videoUrl}}" wx:if="{{playing}}" autoplay></video>

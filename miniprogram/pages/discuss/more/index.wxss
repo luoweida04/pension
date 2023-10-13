@@ -1,0 +1,48 @@
+/* pages/discuss/more/index.wxss */
+.questionList{
+  width: 90vw;
+  margin: 0 auto;
+}
+.questionItem{
+  width: 100%;
+  background-color: #fff;
+  margin: 30rpx 0;
+  border-radius: 30rpx;
+  box-sizing: border-box;
+  padding: 20rpx;
+}
+.questionItem .top{
+  font-weight: bold;
+  font-size: 1.1em;
+  margin-bottom: 10rpx;
+}
+.questionItem .bottom{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.questionItem .bottom .info{
+  color: rgba(154, 154, 154, 1);
+  font-size: .8em;
+}
+.questionItem .bottom .btns{
+  display: flex;
+  align-items: center;
+  font-size: .8em;
+}
+.questionItem .btns .showAns{
+  border: 1px solid #999;
+  border-radius: 20rpx;
+  box-sizing: border-box;
+  padding: 5rpx 20rpx;
+  margin: 0 20rpx;
+  color: #777;
+}
+.questionItem .btns .postAns{
+  border: 1px solid rgba(84, 180, 148, 1);
+  background: rgba(84, 180, 148, 1);
+  color: #fff;
+  border-radius: 20rpx;
+  box-sizing: border-box;
+  padding: 5rpx 20rpx;
+}
